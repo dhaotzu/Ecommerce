@@ -8,18 +8,23 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/products']">Products</a>
+                <a class="nav-link active" [routerLink]="['/products']">Products</a>
             </li>
         </ul>
 
         <div class="col text-right">
-            <div ngbDropdown class="d-inline-block">
-                <button class="btn btn-outline-light" id="nabarDropdown" ngbDropdownToggle>Username</button>
+            <ng-template #anonymousUser>
+                <li class="nav-item">
+                    <button class="btn btn-outline-light" [routerLink]="['/login']">Login</button>
+                </li>
+            </ng-template>
+            <div *ngIf="auth.user$ | async as user; else anonymousUser" ngbDropdown class="d-inline-block">
+                <button class="btn btn-outline-light" id="nabarDropdown" ngbDropdownToggle>{{ user.displayName }}</button>
                 <div ngbDropdownMenu aria-labelledby="navbarDropdown">
                     <a ngbDropdownItem [routerLink]="['/my/orders']">My Orders</a>
                     <a ngbDropdownItem [routerLink]="['/admin/orders']">Manage Orders</a>
                     <a ngbDropdownItem [routerLink]="['/admin/products']">Manage Products</a>
-                    <a ngbDropdownItem>Log Out</a>
+                    <a ngbDropdownItem (click)="logout()">Log Out</a>
                 </div>
             </div>
         </div>
