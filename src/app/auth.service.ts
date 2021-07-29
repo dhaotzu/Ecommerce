@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import { Observable, of } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -12,7 +11,7 @@ import { UserService } from './user.service';
 export class AuthService {
   user$: Observable<firebase.User>;
 
-  constructor(private userService: UserService, private afAuth: AngularFireAuth, private route: ActivatedRoute) { 
+  constructor(private userService: UserService, private afAuth: AngularFireAuth, private route: ActivatedRoute,private router: Router) { 
     this.user$ = this.afAuth.authState;  
   }
 
@@ -24,20 +23,6 @@ export class AuthService {
 
   logout() {
     this.afAuth.signOut();
+    this.router.navigate(['']);
   }
-
-  // checkAppUserAdmin() {
-  //   return this.user$.pipe( 
-  //     map(user => {
-  //       return this.userService.get(user.uid).get().toPromise().then(doc => {
-  //         const data: any = doc.data();
-  //         if (data.isAdmin) {
-  //             return true;
-  //         } else {
-  //             return false;
-  //         }
-  //       })
-  //     })
-  //   )
-  // }
 }

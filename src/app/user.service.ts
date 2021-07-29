@@ -17,6 +17,6 @@ export class UserService {
   }
 
   get(uid: string){    
-    return this.db.collection('users').doc(uid);
+    return this.db.collection('users').doc(uid).valueChanges();
   }
 }

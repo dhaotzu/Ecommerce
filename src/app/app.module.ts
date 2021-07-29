@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 // Components and Services
 import { NavbarComponent } from './navbar/navbar.component';
@@ -28,6 +29,8 @@ import { AuthGuardService } from './auth-guard.service';
 import { UserService } from './user.service';
 import { AdminAuthGuardService } from './admin-auth-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { CategoriesService } from './categories.service';
+import { ProductService } from './product.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -39,8 +42,9 @@ const routes: Routes = [
   { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuardService] },
   { path: 'my/orders', component: MyOrderComponent, canActivate: [AuthGuardService] },
   
-  { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
   { path: 'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
+  { path: 'admin/products/:id', component: ProductFormComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
+  { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
   { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
 ]
 
@@ -66,13 +70,16 @@ const routes: Routes = [
     AngularFirestoreModule, // firestore
     AngularFireAuthModule,
     NgbModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   providers: [
     AdminAuthGuardService,
     AuthService,
     AuthGuardService,
     UserService,
+    CategoriesService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })

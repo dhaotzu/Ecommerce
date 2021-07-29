@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { AuthService } from './auth.service';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { UserService } from './user.service';
 import { of } from 'rxjs';
 
@@ -14,15 +14,14 @@ export class AdminAuthGuardService implements CanActivate{
   
   canActivate() {    
     return this.auth.user$.pipe(
-      take(1),
       switchMap(user => {
         // check if user is even logged in
         if (user) { 
-          return this.userService.get(user.uid).valueChanges().pipe(take(1))
+          return this.userService.get(user.uid);
         }
         return of(null);
       }),
-      map((data) => {        
+      map((data: any) => {        
         if (data?.isAdmin) {
           return true;
         }
