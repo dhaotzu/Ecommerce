@@ -43,7 +43,7 @@
         </form>
     </div>
     <div class="col-md-4">
-        <div class="card" style="width: 18rem; height: 26rem;">
+        <div *ngIf="product.title" class="card">
             <img class="card-img-top" [src]="imageFile.value" alt="" style="height: 20rem;">
             <div class="card-body">
               <h5 class="card-title">{{title.value}}</h5>

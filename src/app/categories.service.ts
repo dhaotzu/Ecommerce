@@ -8,7 +8,7 @@ export class CategoriesService {
 
   constructor(private db: AngularFirestore) { }
 
-  getCategories() {
+  getAll() {
     return this.db.collection('categories').valueChanges({idField: 'categoryId'});
   }
 }
