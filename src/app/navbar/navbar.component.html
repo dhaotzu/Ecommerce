@@ -10,6 +10,14 @@
             <li class="nav-item">
                 <a class="nav-link active" [routerLink]="['/products']">Products</a>
             </li>
+            <li class="nav-item">
+                <div style="padding-top: 8px;">
+                    <a [routerLink]="['/shopping-cart']">
+                        <fa-icon [icon]="faShoppingCart" [styles]="{'color': 'white'}"></fa-icon>
+                        <span class="badge rounded-pill bg-info text-dark">{{ shoppingCartItemCount }}</span>
+                    </a>
+                </div>
+            </li>
         </ul>
 
         <div class="col text-right">

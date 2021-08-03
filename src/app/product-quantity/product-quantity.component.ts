@@ -3,25 +3,24 @@ import { Product } from '../models/product';
 import { ShoppingCartService } from '../shopping-cart.service';
 
 @Component({
-  selector: 'app-product-card',
-  templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.css']
+  selector: 'app-product-quantity',
+  templateUrl: './product-quantity.component.html',
+  styleUrls: ['./product-quantity.component.css']
 })
-export class ProductCardComponent implements OnInit {
+export class ProductQuantityComponent implements OnInit {
   @Input('product') product: Product;
-  @Input('shoppingCart') shoppingCart;
-
+  @Input('quantity') quantity;
+  
   constructor(private shoppingCartService: ShoppingCartService) { }
 
   ngOnInit(): void {
   }
-  
+
   addToCart() {
     this.shoppingCartService.addToCart(this.product);
   }
 
-  getQuantity(): number {
-    let item = this.shoppingCart[this.product.productId];
-    return item? item.quantity : 0;
+  removeFromCart() {
+    this.shoppingCartService.removeFromCart(this.product);
   }
 }
